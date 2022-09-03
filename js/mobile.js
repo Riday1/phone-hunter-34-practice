@@ -18,6 +18,7 @@ const displayPhones = (phones) => {
     //if else for show "no phone found message"
     if (phones.length === 0) {
         document.getElementById('no-phone-found').classList.remove('d-none')
+        toggleLoader(false)
     } else {
         document.getElementById('no-phone-found').classList.add('d-none')
     }
@@ -43,7 +44,8 @@ const displayPhones = (phones) => {
 
         //append "phoneDiv/col" into phoneContainer
         phonesContainer.appendChild(phoneDiv)
-
+        //stop loader 
+        toggleLoader(false)
 
     });
 }
@@ -54,6 +56,9 @@ document.getElementById('btn-search').addEventListener('click', function () {
     const searchText = searchField.value;
     // console.log(searchText)
     loadPhonesData(searchText)
+    //start loader 
+    toggleLoader(true)
+
 })
 
 const loadPhonesDetails = (id) => {
@@ -88,9 +93,17 @@ document.getElementById('search-field').addEventListener('keyup', function (even
     const searchField = document.getElementById('search-field')
     const searchText = searchField.value; // search Field value
     if (event.key === 'Enter') {
-        loadPhonesData(searchText) 
+        loadPhonesData(searchText)
     }
 })
 
+const toggleLoader = (isLoading) => {
+    if (isLoading) {
+        document.getElementById('loader').classList.remove('d-none')
+    }
+    else {
+        document.getElementById('loader').classList.add('d-none')
+    }
+}
 //call loadPhonesData function
 loadPhonesData('a')
